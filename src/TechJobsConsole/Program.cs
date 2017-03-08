@@ -10,6 +10,7 @@ namespace TechJobsConsole
             // Create two Dictionary vars to hold info for menu and data
 
             // Top-level menu options
+
             Dictionary<string, string> actionChoices = new Dictionary<string, string>();
             actionChoices.Add("search", "Search");
             actionChoices.Add("list", "List");
@@ -118,7 +119,15 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("printJobs is not implemented yet");
+            foreach(Dictionary<string,string> item in someJobs)
+            {
+                foreach (KeyValuePair<string, string> pair in item) {
+                    Console.WriteLine(string.Format("{0} {1}", pair.Key, pair.Value));
+                }
+            }
+
+            //Console.WriteLine("printJobs is not implemented yet");
         }
     }
 }
+       

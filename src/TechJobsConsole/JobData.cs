@@ -131,9 +131,39 @@ namespace TechJobsConsole
                     }
                 }
             }
+        
+        //added closing curly brace
+        }
+        
 
-            // Add the final value
-            rowValues.Add(valueBuilder.ToString());
+            //FindByValuepublic method
+            //public static method, returns a list of dictionaries, going to accept some 
+            //value that's a string that we're going to use to search through our columns 
+
+        public static List<Dictionary<string, string>> FindByValue(string searchTerm)
+        {
+            LoadData();
+            //set up a list of jobs that we're going to use to return from this method
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+            //row is a Dictionary<string, string>
+            foreach (Dictionary<string, string> row in AllJobs)
+            {
+                //item is a KeyValuePair
+                foreach (KeyValuePair<string, string> field in row)
+                {
+                    string aValue = field.Value;
+                    if (aValue.Contains(searchTerm))
+                    {
+                        jobs.Add(row);
+                        break;
+                    }
+                }
+            }
+            return jobs;
+        }  
+
+        // Add the final value       
+        rowValues.Add(valueBuilder.ToString());
             valueBuilder.Clear();
 
             return rowValues.ToArray();

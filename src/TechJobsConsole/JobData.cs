@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System;
 
 namespace TechJobsConsole
 {
@@ -48,10 +49,16 @@ namespace TechJobsConsole
             foreach (Dictionary<string, string> row in AllJobs)
             {
                 string aValue = row[column];
+                //create new, case-insensitive searchTerm 
+                if (aValue.IndexOf(value, StringComparison.OrdinalIgnoreCase) >= 0)
 
-                if (aValue.Contains(value))
+                // if (aValue.Contains(value))
                 {
                     jobs.Add(row);
+                }
+                else
+                {
+                    Console.WriteLine("There are no results for that entry");
                 }
             }
 
@@ -131,14 +138,17 @@ namespace TechJobsConsole
                     }
                 }
             }
-        
-        //added closing curly brace
-        }
-        
 
-            //FindByValuepublic method
-            //public static method, returns a list of dictionaries, going to accept some 
-            //value that's a string that we're going to use to search through our columns 
+        // Add the final value       
+            rowValues.Add(valueBuilder.ToString());
+                valueBuilder.Clear();
+
+                return rowValues.ToArray();
+        }
+
+        //FindByValuepublic method
+        //public static method, returns a list of dictionaries, going to accept some 
+        //value that's a string that we're going to use to search through our columns 
 
         public static List<Dictionary<string, string>> FindByValue(string searchTerm)
         {
@@ -152,21 +162,20 @@ namespace TechJobsConsole
                 foreach (KeyValuePair<string, string> field in row)
                 {
                     string aValue = field.Value;
-                    if (aValue.Contains(searchTerm))
+                    //if (aValue.Contains(searchTerm))
+                    //create new, case-insensitive searchTerm 
+                    if (aValue.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 )                    
                     {
                         jobs.Add(row);
                         break;
                     }
+                    else
+                    {
+                        Console.WriteLine("There are no results for that entry");
+                    }
                 }
             }
             return jobs;
-        }  
-
-        // Add the final value       
-        rowValues.Add(valueBuilder.ToString());
-            valueBuilder.Clear();
-
-            return rowValues.ToArray();
-        }
+        }        
     }
 }
